@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Rocket",
+    "stage1": {
+      "wetMass": 90,
+      "dryMass": 5,
+      "payloadMass": 2,
+      "Isp": 200,
+      "thrust": 1200
+    },
+    "stage2": {
+      "wetMass": 100,
+      "dryMass": 3,
+      "payloadMass": 2,
+      "Isp": 300,
+      "thrust": 1200
+    },
+    "boosters": 4
+  },
+  {
+    "title": "new rocket",
+    "stage1": {
+      "wetMass": 0,
+      "dryMass": 0,
+      "payloadMass": 0,
+      "Isp": 0
+    },
+    "stage2": {
+      "wetMass": 0,
+      "dryMass": 0,
+      "payloadMass": 0,
+      "Isp": 0
+    }
+  }
+]

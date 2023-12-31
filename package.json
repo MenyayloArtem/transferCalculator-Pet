@@ -1,0 +1,50 @@
+{
+  "name": "rocket-calcutator",
+  "version": "0.9.0",
+  "description": "Program which calculate rocket properties as deltav and another",
+  "main": "./dist/main.cjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "npm run build && electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "author": "Artem",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.1.0",
+    "@electron-forge/maker-deb": "^7.1.0",
+    "@electron-forge/maker-rpm": "^7.1.0",
+    "@electron-forge/maker-squirrel": "^7.1.0",
+    "@electron-forge/maker-zip": "^7.1.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.1.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/electron": "^1.6.10",
+    "@types/node": "^20.9.4",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
+    "css-loader": "^6.8.1",
+    "electron": "^27.1.0",
+    "html-webpack-plugin": "^5.5.3",
+    "rollup": "^4.5.1",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.19",
+    "@mui/material": "^5.14.20",
+    "electron-squirrel-startup": "^1.0.0",
+    "esm": "^3.2.25",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
