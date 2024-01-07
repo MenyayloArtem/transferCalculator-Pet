@@ -25,7 +25,7 @@ function OrbitConstructor () {
 
     const [orbits, setOrbits] = useState<Orbit[]>([defaultOrbit])
 
-    const [names, setNames] = useState<string[]>(["Земля"])
+    const [names, setNames] = useState<string[]>(["Низкая орбита"])
 
     const [openedDialog, setOpenedDialog] = useState<number|null>(null)
 
@@ -113,30 +113,34 @@ function OrbitConstructor () {
 
           let Ap = highTransfer ? R - Orbit.bodyR : orbit1.R - Orbit.bodyR
           let Pe = highTransfer ? orbit1.R - Orbit.bodyR : R - Orbit.bodyR
-          let initialTime = highTransfer ? 0 : Orbit.calcT(Ap,Pe) / 2
+          let halfPeriod = Orbit.calcT(Ap,Pe) / 2
           let peArg = highTransfer ? Orbit.toAng(orbit1.Q) + orbit1.peArg : Orbit.toAng(orbit1.Q) + orbit1.peArg + 180
-          let ascNodeLong = highTransfer ? orbit1.ascNodeLong : orbit2.ascNodeLong
+          // let ascNodeLong = highTransfer ? orbit1.ascNodeLong : orbit2.ascNodeLong
+          let ascNodeLong = orbit1.ascNodeLong
           
 
-          transfer = new Orbit({
-            Ap : Ap,
-            Pe : Pe,
-            peArg : peArg,
-            ascNodeLong : ascNodeLong
-          }, initialTime)
+          // transfer = new Orbit({
+          //   Ap : Ap,
+          //   Pe : Pe,
+          //   peArg : peArg,
+          //   ascNodeLong : ascNodeLong
+          // }, initialTime)
 
           
-
-          
-
-          let K = orbit2.M2Q(Math.PI - Math.sqrt(Math.pow(transfer.a,3) / Math.pow(orbit2.a, 3)) * Math.PI)
-          let time1 = transfer.timeToQ(highTransfer ? Math.PI : 0)
+          let time1 = halfPeriod
           let time2 = orbit2.timeToQ(Qn)
 
           time1 -= Math.floor(time1 / orbit2.T) * orbit2.T
 
           let color = "red"
           if (inRange(time1,time2, 100)) {
+            transfer = new Orbit({
+            Ap : Ap,
+            Pe : Pe,
+            peArg : peArg,
+            ascNodeLong : ascNodeLong
+          }, 0)
+
             if (!transferRef.current) {
               transferRef.current = transfer
               if (highTransfer) {
@@ -164,7 +168,7 @@ function OrbitConstructor () {
               }
             }
 
-            setDebug(`${transfer.T / 2} ${orbit2.T} ${time1} ${time2}`)
+            setDebug(`${transferRef.current!.T / 2} ${orbit2.T} ${time1} ${time2}`)
           display.drawArc(nx, ny, 3, color)
         })
 
@@ -198,7 +202,7 @@ function OrbitConstructor () {
         }
 
         <OrbitDialog 
-        bodyName=''
+        bodyName={`Орбита ${orbits.length + 1}`}
         orbit={emplyOrbit}
         open={openedDialog == -1}
         onSave={addOrbit}

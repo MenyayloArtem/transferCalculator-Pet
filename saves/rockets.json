@@ -2,34 +2,19 @@
   {
     "title": "Rocket",
     "stage1": {
-      "wetMass": 90,
-      "dryMass": 5,
-      "payloadMass": 2,
-      "Isp": 200,
+      "wetMass": 22,
+      "dryMass": 2,
+      "payloadMass": 0,
+      "Isp": 250,
       "thrust": 1200
     },
     "stage2": {
-      "wetMass": 100,
+      "wetMass": 33,
       "dryMass": 3,
-      "payloadMass": 2,
-      "Isp": 300,
-      "thrust": 1200
+      "payloadMass": 0,
+      "Isp": 260,
+      "thrust": 1000
     },
     "boosters": 4
-  },
-  {
-    "title": "new rocket",
-    "stage1": {
-      "wetMass": 0,
-      "dryMass": 0,
-      "payloadMass": 0,
-      "Isp": 0
-    },
-    "stage2": {
-      "wetMass": 0,
-      "dryMass": 0,
-      "payloadMass": 0,
-      "Isp": 0
-    }
   }
 ]

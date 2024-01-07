@@ -22,8 +22,7 @@ interface IOrbit {
     static Mu = 3.986 * Math.pow(10,14)
   
     constructor (orbit : IOrbit, t0 : number) {
-      
-      this.Ap= orbit.Ap
+      this.Ap = orbit.Ap
       this.Pe = orbit.Pe
       this.ascNodeLong = orbit.ascNodeLong
       this.peArg = orbit.peArg

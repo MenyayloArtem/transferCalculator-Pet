@@ -23,10 +23,16 @@ export default class Rocket implements IRocket {
     }
   
     get rocketTanksMass () {
+      if (this.boosters) {
+        return this.stage1.fuelTankMass * this.boosters + this.stage2.fuelTankMass
+      }
       return this.stage1.fuelTankMass + this.stage2.fuelTankMass
     }
   
     get fullMass () {
+      if (this.boosters) {
+        return this.stage1.wetMass * this.boosters + this.stage2.wetMass
+      }
       return this.stage1.wetMass + this.stage2.wetMass
     }
 
@@ -65,21 +71,21 @@ export default class Rocket implements IRocket {
       return max
     }
   
-    calc (X? : number) {
-      if (!X) {
+    calc (Xs? : number) {
+      let X = Xs || 0
+      if (!Xs) {
         X = this.stage2.fuelTankMass / this.rocketTanksMass
       }
   
       if (this.boosters != 0) { 
-        let dm2 = this.stage2.thrust / (this.stage2.Isp * G)
-        let dm1 = this.stage1.thrust / (this.stage1.Isp * G)
+        
   
         let stage1 = new Stage({
           Isp : this.stage1.Isp,
           payloadMass : this.stage1.payloadMass,
           thrust : this.stage1.thrust,
-          wetMass : (1 - X) * this.rocketTanksMass + this.stage1.payloadMass,
-          dryMass : this.stage1.K * (1-X) * this.rocketTanksMass + this.stage1.payloadMass,
+          wetMass : ((1 - X) * this.rocketTanksMass + this.stage1.payloadMass),
+          dryMass : (this.stage1.K * (1-X) * this.rocketTanksMass + this.stage1.payloadMass),
         })
   
         let stage2 = new Stage({
@@ -89,8 +95,11 @@ export default class Rocket implements IRocket {
           wetMass : (X) * this.rocketTanksMass + this.stage2.payloadMass,
           dryMass : this.stage2.K * (X) * this.rocketTanksMass + this.stage2.payloadMass,
         })
+
+        let dm2 = stage2.thrust / (this.stage2.Isp * G)
+        let dm1 = stage1.thrust / (this.stage1.Isp * G)
   
-        let t1 = stage1.fuelMass / this.boosters / dm1
+        let t1 = stage1.fuelMass / dm1 / this.boosters
   
         let fc2 = dm2 * t1
         let fc1 = dm1 * t1
@@ -102,6 +111,23 @@ export default class Rocket implements IRocket {
   
         let dV1 = this.avarangeIsp * G * Math.log(this.fullMass / md1)
         let dV2 = stage2.Isp * G * Math.log(mv2 / stage2.dryMass)
+
+        if (!Xs) {
+          console.log(stage1)
+          console.log(stage2)
+          console.log(this.boosters)
+          console.log(dm1,dm2)
+          console.log(stage1.fuelMass)
+          console.log(t1)
+          console.log(fc1,fc2)
+          console.log(fcTotal)
+          console.log(md1,mv2)
+          console.log(dV1,dV2)
+          console.log(this.stage1.Isp, this.boosters, this.stage2.Isp)
+          console.log("")
+        }
+
+        
 
         return dV1 + dV2
       } else {

@@ -17,7 +17,7 @@ export default class Simulation {
     }
 
     drawOrbit (orbit : Orbit, time? : number, color? : string) {
-
+        const iter = 180
         orbit.t0 = time || (this.time > orbit.T ? this.time - (Math.floor(this.time /  orbit.T)) * orbit.T : this.time)
         let Orb = new Orbit({
           Ap : orbit.Ap,
@@ -32,23 +32,11 @@ export default class Simulation {
           rQ = 360 - Math.abs(rQ)
         }
     
-        for (let i = 0; i < 360; i++) {
-          Orb.t0 = orbit.T / 360 * i
+        for (let i = 0; i < iter; i++) {
+          Orb.t0 = orbit.T / iter * i
           let [x , y] = Orb.calcCoords()
-          let Q = Orb.Q
           
-          if (Orb.t0 >= orbit.T / 2) {
-            Q = 360 - Math.abs(Orb.Q)
-          }
-    
-          let rgb
-    
-          if (rQ > Q) {
-            rgb = 255 - (rQ - Q) * 1.5
-          } else {
-            rgb = 0
-          }
-          this.display.draw(x,y, color || `rgb(0,${rgb + 100},0)`)
+          this.display.draw(x,y, color || `rgb(0,${255},0)`)
         }
 
         let [x,y] = orbit.calcCoords()

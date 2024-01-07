@@ -20,7 +20,7 @@ export default class Helpers {
           Stage 2 delta: ${rocket.stage2.deltaV}\n
           Full delta: ${rocket.calc()}\n
           Optimal delta: ${optimal[0]}\n
-          Optimal stage 1 mass: ${rocket.stage1.payloadMass + (1 - optimal[1]) * rocket.rocketTanksMass}\n
+          Optimal stage 1 mass: ${(rocket.stage1.payloadMass + (1 - optimal[1]) * rocket.rocketTanksMass) / (rocket.boosters || 1)}\n
           Optimal stage 2 mass: ${rocket.stage2.payloadMass + (optimal[1]) * rocket.rocketTanksMass}\n
           Profit: ${optimal[0] - rocket.calc()}
         `

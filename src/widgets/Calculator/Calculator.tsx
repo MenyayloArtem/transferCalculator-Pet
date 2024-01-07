@@ -162,7 +162,7 @@ function Calculator (props : Props) {
                 }
             }}
             value={boosters} 
-            onChange={(e : any) => setBoosters(e.target.value)}
+            onChange={(e : any) => setBoosters(+e.target.value)}
             />
         </Box>
          : "Boosters"}/>
