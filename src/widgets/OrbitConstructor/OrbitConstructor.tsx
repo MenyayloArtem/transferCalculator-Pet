@@ -65,6 +65,13 @@ function OrbitConstructor () {
       }))
     }, [orbits])
 
+    const swipe = () => {
+      let r1 = orbit1Index
+      let r2 = orbit2Index
+      setOrbit1(r2 as any)
+      setOrbit2(r1)
+    }
+
     useEffect(() => {
       setDT(Simulation.maxDt * (simulationSpeed / 100))
     }, [simulationSpeed])
@@ -233,6 +240,8 @@ function OrbitConstructor () {
           index : orbit2Index as any,
           onChange : setOrbit2
         }}
+
+        onSwipe={swipe}
         />
       
 

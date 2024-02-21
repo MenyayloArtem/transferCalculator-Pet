@@ -51,6 +51,21 @@ interface IOrbit {
     get M () {
       return (2 * Math.PI) / this.T * this.t0
     }
+
+    get E () {
+      return this.M2E(this.M)
+    }
+  
+    get R () {
+      return this.Q2R(this.Q)
+    }
+  
+    get Q () {
+      let q = this.E2Q(this.E)
+
+      return q > 0 ? q : q + 2 * Math.PI
+    }
+
   
     E2M (E : number) {
       return E - this.e * Math.sin(E)
@@ -118,20 +133,7 @@ interface IOrbit {
 
 
 
-    get E () {
-      return this.M2E(this.M)
-    }
-  
-    get R () {
-      return this.Q2R(this.Q)
-    }
-  
-    get Q () {
-      let q = this.E2Q(this.E)
-
-      return q > 0 ? q : q + 2 * Math.PI
-      return q
-    }
+    
   
     static toRad (n : number) {
       return n / 180 * Math.PI

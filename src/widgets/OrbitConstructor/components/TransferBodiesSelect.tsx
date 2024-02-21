@@ -1,5 +1,7 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import MultipleStopIcon from '@mui/icons-material/MultipleStop';
 import React from 'react';
+import { MultipleStop } from '@mui/icons-material';
 
 interface TransferBody {
     index : number
@@ -9,12 +11,13 @@ interface TransferBody {
 interface Props {
   names : string[]
   body1 : TransferBody,
-  body2 : TransferBody
+  body2 : TransferBody,
+  onSwipe : Function
 }
 
 function TransferBodiesSelect (props : Props) {
   const {names, body1, body2} = props
-    return <Box sx={{display : "flex", justifyContent : "space-between", width : "100%"}}>
+    return <Box sx={{display : "flex", justifyContent : "space-between", width : "100%", position : "relative"}}>
     <FormControl variant="standard" sx={{ m: 1, width : "100px" }}>
     <InputLabel id="demo-simple-select-standard-label">Тело 1</InputLabel>
     <Select
@@ -36,6 +39,11 @@ function TransferBodiesSelect (props : Props) {
       }
     </Select>
   </FormControl>
+
+  {props.body2 && <FormControl onClick={() => props.onSwipe()}>
+    <MultipleStop sx={{position : "absolute", top : "50%"}}/>
+  </FormControl>}
+
 
   <FormControl variant="standard" sx={{ m: 1, width : "100px" }} disabled={body1.index == null}>
     <InputLabel id="demo-simple-select-standard-label">Тело 2</InputLabel>
